@@ -39,6 +39,12 @@ export default function useFetchJobs(params, page) {
 
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();
+        //checkbox for full_time manipulation for API call
+        if (params.full_time) {
+            params.full_time = "on";
+        } else {
+            params.full_time = "";
+        }
 
         dispatch({ type: ACTIONS.MAKE_REQUEST });
         axios

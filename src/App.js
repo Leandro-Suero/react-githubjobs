@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import useFetchJobs from "./useFetchJobs";
 import Job from "./components/Job";
 import JobsPagination from "./components/JobsPagination";
+import SearchForm from "./components/SearchForm";
 
 function App() {
     const [params, setParams] = useState({});
@@ -12,8 +13,9 @@ function App() {
 
     function handleParamChange(e) {
         const param = e.target.name;
-        const value = e.target.value;
-        console.log(param, value);
+        //in case of the checkbox
+        const value = param === "full_time" ? !e.target.value : e.target.value;
+        //update
         setPage(1);
         setParams((prevParams) => {
             return { ...prevParams, [param]: value };
@@ -23,6 +25,7 @@ function App() {
     return (
         <Container className="my-4">
             <h1 className="mb-4">GitHub Jobs</h1>
+            <SearchForm params={params} onParamChange={handleParamChange} />
             <JobsPagination
                 page={page}
                 setPage={setPage}
